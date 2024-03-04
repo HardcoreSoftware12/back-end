@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 
 const noteSchema = mongoose.Schema({
-    name:{
+    title:{
         type:String,
         required:true
     },
@@ -10,7 +10,7 @@ const noteSchema = mongoose.Schema({
         type:String,
         required:true
     },
-    userId:{
+    userId:{//Id of the user
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
         required:true

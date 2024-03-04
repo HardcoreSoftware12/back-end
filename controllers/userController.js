@@ -54,6 +54,10 @@ const login = async(req,res)=>{
         const secretKey = process.env.SECRET
         const token = await jwt.sign({email:existingUser.email, id:existingUser._id},secretKey)
 
+        
+        // res.cookie("token",token,{
+        //     maxAge:10000
+        // });
         res.status(200).json({user:existingUser, token:token})
         
     } catch (error) {
