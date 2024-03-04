@@ -20,7 +20,7 @@ const auth = async(req,res,next)=>{
 
 
         }else{
-            res.status(400).json({msg:"unauthorized user "})
+            return res.status(400).json({msg:"unauthorized user "})
         }
         next();
         
