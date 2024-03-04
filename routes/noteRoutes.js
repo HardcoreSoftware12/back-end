@@ -5,7 +5,7 @@ const { create, get, updateNote, deleteNote } = require("../controllers/notesCon
 
 
 notesRouter.get("/getNote",auth,get)
-notesRouter.post("/createNote",auth,create)
+notesRouter.post("/createNote/",auth,create)
 notesRouter.put("/updateNote", auth, updateNote)
 notesRouter.delete("/deleteNote",auth,deleteNote)
 
