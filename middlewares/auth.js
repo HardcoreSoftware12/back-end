@@ -2,11 +2,12 @@ const jwt = require("jsonwebtoken")
 
 
 const auth = async(req,res,next)=>{
-    // console.log("hello");
-    let token = req.headers.authorization
+    console.log("hello");
+    let token = req.cookies.token
+    console.log(token,"token");
     try {
         if(token){
-            token = token.split(" ")[1];
+            token = token.split(" ")[1]; //to split the bearer
             // console.log(token);
             let secretKey = process.env.SECRET
             const user = await jwt.verify(token,secretKey)
