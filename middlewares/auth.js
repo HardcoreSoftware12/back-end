@@ -7,7 +7,7 @@ const auth = async(req,res,next)=>{
     console.log(token,"token");
     try {
         if(token){
-            token = token.split(" ")[1]; //to split the bearer
+            // token = token.split(" ")[1]; //to split the bearer
             // console.log(token);
             let secretKey = process.env.SECRET
             const user = await jwt.verify(token,secretKey)

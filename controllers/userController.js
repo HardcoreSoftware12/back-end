@@ -84,14 +84,14 @@ const login = async(req,res)=>{
 const isLoggedIn = async(req,res)=>{
    
     let token = req.cookies.token
-    console.log(token,"token");
+    // console.log(token,"token");
     try {
         if(token){
            
            
             let secretKey = process.env.SECRET
             const user = await jwt.verify(token,secretKey)
-            console.log(user);
+            // console.log(user);
             req.userId = user.id;
             res.json(true);
 
@@ -108,10 +108,20 @@ const isLoggedIn = async(req,res)=>{
     }
 }
 
+const logout=(req,res)=>{
+    console.log("code for logout");
+    res.cookie("token",'',{
+        httpOnly:true,
+        expires:new Date(0)
+    }).send();
+
+}
+
 
 
 module.exports = {
     register,
     login,
-    isLoggedIn
+    isLoggedIn,
+    logout
 }
