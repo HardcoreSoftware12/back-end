@@ -12,6 +12,7 @@ const create = async(req,res)=>{
     })
     try {
         await newNote.save();
+      
         res.status(200).json({note:newNote})
     } catch (error) {
         console.error(error)
@@ -22,14 +23,23 @@ const create = async(req,res)=>{
 }
 
 const get = async(req,res)=>{
-    const notes = await notesModel.find({})
-    console.log("notes",notes);
-    res.json({notes:notes})
+    
+    posts = await notesModel.find({})
+    console.log("notes",post);
+    res.json({posts:posts})
+
 
     
 }
 
-const updateNote = async(req,res)=>{
+const myPosts = async(req,res)=>{
+    let posts=[]
+    const user = req.userId;
+    posts = await notesModel.find({userId:user})
+    res.json({posts:posts});
+}
+
+const updatePost = async(req,res)=>{
  const{title,description} = req.body;
 
  try {
@@ -55,7 +65,7 @@ const updateNote = async(req,res)=>{
 
 }
 
-const deleteNote = async(req,res)=>{
+const deletePost = async(req,res)=>{
     let id = req.query.id;
     try {
         let deleted = await notesModel.deleteOne({_id : id})
@@ -78,6 +88,7 @@ const deleteNote = async(req,res)=>{
 module.exports = {
     create,
     get,
-    updateNote,
-    deleteNote
+    updatePost,
+    deletePost,
+    myPosts
 }

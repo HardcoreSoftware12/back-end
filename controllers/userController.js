@@ -93,6 +93,7 @@ const isLoggedIn = async(req,res)=>{
             const user = await jwt.verify(token,secretKey)
             // console.log(user);
             req.userId = user.id;
+          
             res.json(true);
 
         }else{
