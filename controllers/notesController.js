@@ -3,21 +3,36 @@ const notesModel = require("../models/notesModel");
 
 
 const create = async(req,res)=>{
-    const {title, description} = req.body;
-
-    const newNote = new notesModel({
-        title:title,
-        description:description,
-        userId : req.userId
-    })
+    console.log(req.file);
     try {
+        if (!req.file) {
+            return res.status(400).json({ msg: "Please upload an image file" });
+        }
+
+        // Extract form data and image data
+        const { title, description, smallDescription, category } = req.body;
+        const imageData = req.file.buffer;
+
+        // Create new note instance with form data and image data
+        const newNote = new notesModel({
+            title: title,
+            description: description,
+            smallDescription: smallDescription,
+            photo: {
+                data: imageData,
+                contentType: req.file.mimetype // Store image content type
+            },
+            category: category,
+            userId: req.userId
+        });
+
+        // Save the new note to the database
         await newNote.save();
-      
-        res.status(200).json({note:newNote})
+
+        res.json({ note: newNote });
     } catch (error) {
-        console.error(error)
-        res.status(400).json({msg:"something wen wrong"})
-        
+        console.error(error);
+        res.status(400).json({ msg: "Something went wrong" });
     }
 
 }
