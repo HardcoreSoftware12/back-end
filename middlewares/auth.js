@@ -2,9 +2,9 @@ const jwt = require("jsonwebtoken")
 
 
 const auth = async(req,res,next)=>{
-    console.log("hello");
+    // console.log("hello");
     let token = req.cookies.token
-    console.log(token,"token");
+    // console.log(token,"token");
     try {
         if(token){
             // token = token.split(" ")[1]; //to split the bearer

@@ -25,25 +25,44 @@ const create = async(req,res)=>{
 const get = async(req,res)=>{
     
     posts = await notesModel.find({})
-    console.log("notes",post);
+    console.log("notes",posts);
     res.json({posts:posts})
 
 
     
 }
+const getNote = async(req,res)=>{
+   
+    try {
+        let noteId = req.params.id
+        console.log(noteId);
+        if(!noteId){
+          res.status(400).json({msg:"provide id"})
+        }
+        let note = await notesModel.findById(noteId)
+        if(!note){
+          res.status(400).json({msg:"note not found"})
+        }
+       
+        
+        res.json({note})
+        
+     } catch (error) {
+        console.error(error)
+        res.status(400).json({msg:"error updating"})
+        
+     }
 
-const myPosts = async(req,res)=>{
-    let posts=[]
-    const user = req.userId;
-    posts = await notesModel.find({userId:user})
-    res.json({posts:posts});
 }
+
+
 
 const updatePost = async(req,res)=>{
  const{title,description} = req.body;
 
  try {
-    let noteId = req.query.id
+    let noteId = req.params.id
+    console.log(noteId);
     if(!noteId){
       res.status(400).json({msg:"provide id"})
     }
@@ -57,7 +76,7 @@ const updatePost = async(req,res)=>{
     
  } catch (error) {
     console.error(error)
-    res.status(400).json({msg:"error updating"})
+    res.status(400).json({msg:"error updating the data"})
     
  }
  
@@ -66,7 +85,7 @@ const updatePost = async(req,res)=>{
 }
 
 const deletePost = async(req,res)=>{
-    let id = req.query.id;
+    let id = req.params.id;
     try {
         let deleted = await notesModel.deleteOne({_id : id})
         console.log(deleted);
@@ -85,10 +104,24 @@ const deletePost = async(req,res)=>{
     
 }
 
+
+const myPosts=async(req,res)=>{
+   const userID = req.userId;
+   console.log(userID);
+   const resp = await notesModel.find({userId:userID})
+   console.log(resp);
+   res.json({resp})
+
+
+
+}
+
 module.exports = {
     create,
     get,
+    getNote,
     updatePost,
     deletePost,
     myPosts
+ 
 }
