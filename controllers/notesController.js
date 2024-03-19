@@ -31,29 +31,29 @@ const get = async(req,res)=>{
 
     
 }
-const getNote = async(req,res)=>{
+// const getNote = async(req,res)=>{
    
-    try {
-        let noteId = req.params.id
-        console.log(noteId);
-        if(!noteId){
-          res.status(400).json({msg:"provide id"})
-        }
-        let note = await notesModel.findById(noteId)
-        if(!note){
-          res.status(400).json({msg:"note not found"})
-        }
+//     try {
+//         let noteId = req.params.id
+//         console.log(noteId);
+//         if(!noteId){
+//           res.status(400).json({msg:"provide id"})
+//         }
+//         let note = await notesModel.findById(noteId)
+//         if(!note){
+//           res.status(400).json({msg:"note not found"})
+//         }
        
         
-        res.json({note})
+//         res.json({note})
         
-     } catch (error) {
-        console.error(error)
-        res.status(400).json({msg:"error updating"})
+//      } catch (error) {
+//         console.error(error)
+//         res.status(400).json({msg:"error updating"})
         
-     }
+//      }
 
-}
+// }
 
 
 
@@ -116,10 +116,18 @@ const myPosts=async(req,res)=>{
 
 }
 
+const getOne = async(req,res)=>{
+   const postId = req.params.id
+   const post = await notesModel.findById(postId)
+   console.log(post);
+   res.json(post);
+}
+
 module.exports = {
     create,
     get,
-    getNote,
+    getOne,
+    
     updatePost,
     deletePost,
     myPosts
