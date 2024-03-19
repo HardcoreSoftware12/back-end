@@ -26,7 +26,7 @@ app.use("/user",userRouter)
 app.use("/notes",notesRouter)
 
 app.get("/",(req,res)=>{
-    res.send("Api by RANJIT")
+    res.send("Api by RANJIT ")
 })
 
 
