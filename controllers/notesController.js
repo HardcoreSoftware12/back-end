@@ -26,7 +26,7 @@ const get = async(req,res)=>{
     
     posts = await notesModel.find({})
     console.log("notes",posts);
-    res.json({posts:posts})
+    res.json(posts)
 
 
     

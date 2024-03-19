@@ -57,7 +57,7 @@ const login = async(req,res)=>{
         }
 
         const secretKey = process.env.SECRET
-        const token = await jwt.sign({email:existingUser.email, id:existingUser._id},secretKey)
+        const token = await jwt.sign({email:existingUser.email, id:existingUser._id,username:existingUser.username},secretKey)
 
         const cookieOptions = {
             httpOnly: true,
@@ -92,7 +92,7 @@ const isLoggedIn = async(req,res)=>{
             let secretKey = process.env.SECRET
             const user = await jwt.verify(token,secretKey)
             // console.log(user);
-            req.userId = user.id;
+            // req.userId = user.id; 
           
             res.json(true);
 
@@ -118,11 +118,26 @@ const logout=(req,res)=>{
 
 }
 
+const getUser = async(req,res)=>{
+    const token = req.cookies.token;
+    try {
+        if(token){
+            let secretKey = process.env.SECRET;
+            const user = jwt.verify(token,secretKey)
+            console.log(user);
+            res.json(user)
+        }
+    } catch (error) {
+        
+    }
+}
+
 
 
 module.exports = {
     register,
     login,
     isLoggedIn,
-    logout
+    logout,
+    getUser
 }
