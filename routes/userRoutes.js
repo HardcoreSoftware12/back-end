@@ -1,5 +1,5 @@
 const express = require("express");
-const { register, login,isLoggedIn,logout, getUser} = require("../controllers/userController");
+const { register, login,isLoggedIn,logout, getUser, getUserById} = require("../controllers/userController");
 const userRouter = express.Router()
 
 
@@ -12,6 +12,7 @@ userRouter.post("/login",login)
 userRouter.get("/logout",logout)
 userRouter.get("/isLoggedIn",isLoggedIn)
 userRouter.get("/getuser",getUser)
+userRouter.get("/getuserbyid/:id",getUserById)
 
 
 module.exports = userRouter;

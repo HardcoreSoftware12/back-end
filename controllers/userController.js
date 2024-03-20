@@ -13,7 +13,7 @@ const register = async(req,res)=>{
         const existingUser = await User.findOne({email:email})
 
         if(existingUser){
-            return res.json({msg:"User already exists kindly login"})
+             return res.json({msg:"User already exists kindly login"})
         }
 
         hashedPassword = await bcrypt.hash(password,10)
@@ -25,7 +25,7 @@ const register = async(req,res)=>{
         // const secretKey = process.env.SECRET
 
         // const token = await jwt.sign({email:user.email, id:user._id},secretKey)
-        res.status(200).json({user:user,msg:"Registerd Successfully"})
+        res.json({msg:"Registerd Successfully"})
 
 
         
@@ -48,11 +48,11 @@ const login = async(req,res)=>{
     try {
         const existingUser = await User.findOne({email:email})
         if(!existingUser){
-            return res.status(400).json({msg:"user not found register"})
+            return res.json({msg:"user not found register"})
         }
         const passwordMatch = await bcrypt.compare(password,existingUser.password)
         if(!passwordMatch){
-            return res.status(400).json({msg:"invalid credentials"})
+            return res.json({msg:"invalid credentials"})
 
         }
 
@@ -68,9 +68,10 @@ const login = async(req,res)=>{
         };
 
         
-        res.cookie("token",token) 
+        res.cookie("token",token,cookieOptions) 
       
-        res.status(200).json({token:token})
+        // res.json({token:token})
+        res.json({msg:'user loggedIn'})
         
     } catch (error) {
         console.error("error registering the user",error);
@@ -84,7 +85,7 @@ const login = async(req,res)=>{
 const isLoggedIn = async(req,res)=>{
    
     let token = req.cookies.token
-    // console.log(token,"token");
+    console.log(token,"token is logged In");
     try {
         if(token){
            
@@ -129,6 +130,20 @@ const getUser = async(req,res)=>{
         }
     } catch (error) {
         
+        console.error(error)
+    }
+}
+
+const getUserById = async(req,res)=>{
+    const id = req.params.id;
+    try {
+      if(id){
+        const user = await User.findById(id);
+        return res.json(user)
+
+      }
+    } catch (error) {
+        console.error(error)
     }
 }
 
@@ -139,5 +154,6 @@ module.exports = {
     login,
     isLoggedIn,
     logout,
-    getUser
+    getUser,
+    getUserById
 }
