@@ -62,7 +62,7 @@ const login = async(req,res)=>{
         const cookieOptions = {
             httpOnly: true,
             domain: "localhost",
-            secure: true, // Requires HTTPS
+            
             sameSite: 'None', // Allows cross-site requests
             // Set other cookie attributes such as domain, path, expires, etc. if necessary
         };

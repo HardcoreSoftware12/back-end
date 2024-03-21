@@ -66,7 +66,7 @@ To run this project, you will need to add the following environment variables to
   GET https://noteapi-bpu4.onrender.com/notes/getNote
 ```
 ```http
-  POST http://localhost:8000/notes/createNote
+  POST https://back-end-mr6o.onrender.com/notes/createNote
 ```
 ```http
   PUT https://noteapi-bpu4.onrender.com/notes/updateNote/
