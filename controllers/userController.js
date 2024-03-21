@@ -61,10 +61,10 @@ const login = async(req,res)=>{
 
         const cookieOptions = {
             httpOnly: true,
-            domain: "localhost",
-            
+            domain: "https://back-end-mr6o.onrender.com",
+            secure:true,
             sameSite: 'None', // Allows cross-site requests
-            // Set other cookie attributes such as domain, path, expires, etc. if necessary
+            path:"/"
         };
 
         
